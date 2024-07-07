@@ -1,0 +1,151 @@
+.jumbotron {
+  background-color: #f8f9fa;
+  padding: 2rem 1rem;
+  text-align: center;
+  border-radius: 10px;
+
+}
+
+.card {
+  border: 1px solid #dee2e6;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.special-card-advanced-search{
+  color: #007bff;
+}
+
+.card-header{
+  background-color: var(--secondary-color);
+}
+
+.card-footer button {
+  width: 100%;
+}
+
+.navbar-brand, .nav-link {
+  font-size: 1.1rem;
+}
+
+.navbar {
+  margin-bottom: 1rem;
+}
+
+.container {
+  max-width: 1200px;
+}
+
+:root {
+
+  --primary-color: #007bff;
+  --secondary-color: #f7f7f8;
+  --background-color: #7ab5ed3e;
+  --accent-color: #21c1fc;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--primary-color);
+}
+
+.navbar, .footer {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+}
+
+.card {
+  background-color: var(--secondary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.btn-primary {
+  /*
+  border-color: var(--accent-color);
+  color: var(--background-color);
+  */
+  background-color: var(--accent-color);
+}
+
+a {
+  color: var(--accent-color);
+}
+
+.carousel-container {
+  position: relative;
+}
+
+.home-container-main{
+  border-radius: 10%;
+}
+
+.jumbotron-home {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border-radius: 0px;
+  /*
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  */
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.jumbotron {
+  text-align: center;
+}
+
+.card-title {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.btn-sm {
+  padding: 5px 10px;
+}
+
+.results-container {
+  height: 500px;
+  overflow-y: auto;
+}
+
+.table-container {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.ratings-graph {
+  margin-top: 20px;
+}
+
+.rating-bar {
+  height: 20px;
+  background-color: #4caf50;
+  margin: 5px 0;
+  color: white;
+  text-align: left;
+  padding-left: 10px;
+  line-height: 20px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.rating-bar::before {
+  margin-right: 5px;
+}
+
