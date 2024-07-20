@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { fakeUsers, fakeBooks, fakeDiscussions } from '../Database';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
+import { Link } from 'react-router-dom';
 
 const user = fakeUsers[0];
 const userBooks = fakeBooks.slice(0, 3);
@@ -46,21 +47,21 @@ const Profile = () => {
       </div>
       <div className="row">
         <div className="col-md-4">
-          <div className="card mb-4" style={{ height: '45%' }}>
+          <div className="card mb-4" style={{ height: '46%' }}>
             <div className="card-body text-center">
               <h3 className="card-title mt-3">{user.username}</h3>
               <p className="card-text">Email: {user.email}</p>
               <p className="card-text">
                 Bio: A passionate reader and book lover who enjoys exploring various genres and participating in discussions.
               </p>
-              <p className="card-text">Location: Bookland, Library City</p>
+              {/*<p className="card-text">Location: Bookland, Library City</p>*/}
             </div>
           </div>
-          <div className="card" style={{ height: '46%', overflowY: 'auto' }}>
-            <div className="card-header">
+          <div className="card" style={{ height: '48%',}}>
+            <div className="card-header" >
               <h4>Settings & Notifications</h4>
             </div>
-            <div className="card-body">
+            <div className="card-body" style={{overflowY: 'auto' }}>
               <form>
                 <div className="form-group">
                   <label htmlFor="emailNotifications">Email Notifications</label>
@@ -169,7 +170,7 @@ const Profile = () => {
         </div>
         <div className="col-md-8">
           <div className="card mb-4" style={{ maxHeight: '300px', overflowY: 'auto' }}>
-            <div className="card-header">
+            <div className="card-header sticky-header">
               <h4>My Shelf</h4>
             </div>
             <div className="card-body">
@@ -178,7 +179,11 @@ const Profile = () => {
                   <div className="col-md-4 mb-3" key={book.id}>
                     <div className="card h-100">
                       <div className="card-body">
-                        <h5 className="card-title">{book.title}</h5>
+                      <Link to={`/book/${book.id}`}>
+                        <a href="#" className="text-primary">
+                          <h5>{book.title}</h5>
+                        </a>
+                      </Link>
                         <p className="card-text">{book.description}</p>
                         <p className="card-text"><small className="text-muted">Rating: {book.rating}</small></p>
                       </div>
@@ -188,15 +193,18 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <div className="card" style={{ maxHeight: '300px', overflowY: 'auto' }}>
-            <div className="card-header">
+          <div className="card" style={{ maxHeight: '300px'}}>
+            <div className="card-header sticky-header">
               <h4>My Discussions</h4>
             </div>
-            <div className="card-body">
+            <div className="card-body"  style={{overflowY: 'auto' }}>
               <ul className="list-group list-group-flush">
                 {userDiscussions.map(discussion => (
                   <li className="list-group-item" key={discussion.id}>
-                    <h5>{discussion.topic}</h5>
+                    <Link to={`/discussions/${discussion.id}`}>
+                      <a href="#" className="text-primary"><h5>{discussion.topic}</h5>
+                      </a>
+                    </Link>
                     <p>{discussion.message}</p>
                     <p><small className="text-muted">Last Active: {discussion.lastActive}</small></p>
                     <p><small className="text-muted">Posts: {discussion.postsCount}</small></p>

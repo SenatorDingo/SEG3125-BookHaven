@@ -4,6 +4,7 @@ import { fakeBooks, fakeAuthors, fakeReviews, fakeDiscussions, fakeUsers } from 
 import coverImage from '../logo.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
+import { Link } from 'react-router-dom';
 
 const BookDetails = () => {
   const { id } = useParams();
@@ -87,7 +88,10 @@ const BookDetails = () => {
                 activeDiscussions.map(discussion => (
                   <div key={discussion.id} className="card mb-3">
                     <div className="card-body">
-                      <h5 className="card-title">{discussion.topic}</h5>
+                      <Link to={`/discussions/${discussion.id}`}>
+                        <a href="#" className="text-primary"><h5>{discussion.topic}</h5>
+                        </a>
+                      </Link>
                       <p className="card-text">{discussion.message}</p>
                       <p className="card-text"><small className="text-muted">Last active: {discussion.lastActive}</small></p>
                       <p className="card-text"><small className="text-muted">Posts: {discussion.postsCount}</small></p>

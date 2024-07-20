@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../App.css';
 import { fakeBooks, fakeAuthors } from '../Database';
+import { Link } from 'react-router-dom';
 
 const AdvancedSearch = () => {
   const [title, setTitle] = useState('');
@@ -143,9 +144,13 @@ const AdvancedSearch = () => {
                         <td>{book.title}</td>
                         <td>{getAuthorById(book.authorId)}</td>
                         <td>{book.rating}</td>
-                        <td>
-                          <button className="btn btn-primary btn-sm">More</button>
-                        </td>
+                          <td>
+                          <Link to={`/book/${book.id}`}>
+
+                            <button className="btn btn-primary btn-sm">More</button>
+                            </Link>
+
+                          </td>
                       </tr>
                     ))}
                   </tbody>

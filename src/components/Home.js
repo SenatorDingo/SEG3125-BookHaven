@@ -50,6 +50,8 @@ const Home = () => {
           <h1 className="display-3">Welcome to Book Haven!</h1>
         </header>
       </div>
+
+      {/*
       <div className="row text-center mt-5">
         <div className="col-lg-4 col-md-6 mb-4">
           <div className="card h-100">
@@ -93,7 +95,9 @@ const Home = () => {
           </div>
         </div>
       </div>
+      */}
     </div>
+
   );
 };
 

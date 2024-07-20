@@ -149,3 +149,43 @@ a {
   margin-right: 5px;
 }
 
+.popup {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 1050;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeout {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.sticky-header {
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 1;
+  background-color: white;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.star-rating .star {
+  font-size: 2em;
+  color: rgb(204, 184, 184);
+}
+
+.star-rating .star.filled {
+  color: rgb(232, 232, 8);
+}

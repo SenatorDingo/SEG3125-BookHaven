@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../App.css';
 import logo from '../resources/logo.png';
+import { LanguageContext } from '../context/LanguageContext';
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
+  const { language, toggleLanguage, setLanguage } = useContext(LanguageContext);
 
   const routes = [
     { path: '/', name: 'Home' },
@@ -18,6 +22,12 @@ const Navbar = () => {
     { path: '/profile', name: 'Profile' },
     { path: '/AdvancedSearch', name: 'Advanced Search'}
   ];
+
+  useEffect(() => {
+    if (location.pathname !== '/discussions' && language !== 'EN') {
+      setLanguage('EN');
+    }
+  }, [location.pathname, language, setLanguage]);
 
   const handleSearchChange = (e) => {
     const query = e.target.value;
@@ -33,6 +43,17 @@ const Navbar = () => {
     e.preventDefault();
     if (searchQuery.trim() !== '') {
       navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
+  const handleLanguageClick = () => {
+    if (window.location.pathname !== '/discussions') {
+      setShowPopup(true);
+      setTimeout(() => {
+        setShowPopup(false);
+      }, 3000);
+    } else {
+      toggleLanguage();
     }
   };
 
@@ -85,12 +106,22 @@ const Navbar = () => {
             <Link className="nav-link" to="/discussions">Discussions</Link>
           </li>
           <li className="nav-item">
+            <button className="btn btn-link nav-link" onClick={handleLanguageClick}>
+              {language === 'EN' ? 'FR' : 'EN'}
+            </button>
+          </li>
+          <li className="nav-item">
             <Link className="nav-link" to="/profile">
               <i className="bi bi-person-circle"></i>
             </Link>
           </li>
         </ul>
       </div>
+      {showPopup && (
+        <div className="popup">
+          Sorry, FR is only available on our discussions page as of right now. We are working on it.
+        </div>
+      )}
     </nav>
   );
 };

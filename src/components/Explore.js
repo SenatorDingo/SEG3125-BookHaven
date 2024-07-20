@@ -39,12 +39,16 @@ const Explore = () => {
           <div className="card h-100 special-card-advanced-search">
             <div className="card-body">
               <h4 className="card-title card-header" align="center">Advanced Search</h4>
-              <p className="card-text">
+              <button className="btn btn-outline-success" type="submit">
+              <i className="bi bi-search"></i>
+              </button>
+              {/*<p className="card-text">
                 Use our advanced search tool to find books by genre, author, rating, and more.
               </p>
               <p className="card-text">
                 With our recommendation engine, you can get personalized suggestions based on your reading preferences and history.
               </p>
+              */}
             </div>
             <div className="card-footer">
                 <Link to='/AdvancedSearch'>
