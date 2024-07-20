@@ -97,6 +97,7 @@ const Discussions = () => {
       englishOnly: "English only",
       frenchOnly: "French only"
     },
+
     fr: {
       header: "Discussions",
       filterTitle: "Filtrer les discussions",
@@ -242,7 +243,7 @@ const Discussions = () => {
         <div className="col-lg-9 col-md-8 mb-4">
           <div className="card h-100">
             <div className="card-body" style={{ maxHeight: '500px', overflowY: 'auto' }}>
-              <h4 className="card-title">{labels[lang].activeThreadsTitle}</h4>
+              <h4 className="card-title card-header sticky-header">{labels[lang].activeThreadsTitle}</h4>
               {displayedDiscussions.map((discussion) => (
                 <div key={discussion.id} className="mb-3">
                   <h5 className="card-title">

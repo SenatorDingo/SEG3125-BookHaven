@@ -56,6 +56,34 @@ export const fakeAuthors = [
 
 export const fakeDiscussions = [
   {
+    id: 9001,
+    topic: "Website Maintenance",
+    message: "Dear users, we are currently undergoing maintenance on various parts of the website. Here are the details:",
+    lastActive: "2024-07-11",
+    postsCount: 1,
+    discussionType: "Website Help",
+    replies: [
+      {
+        id: 3,
+        username: "Admin",
+        message: "French language support is currently available only on the Discussions page. We are working to extend it to other pages.",
+        timestamp: "2024-07-11T13:00:00Z"
+      },
+      {
+        id: 1,
+        username: "Admin",
+        message: "Profile features are under construction and may not be fully operational.",
+        timestamp: "2024-07-11T13:00:00Z"
+      },
+      {
+        id: 2,
+        username: "Admin",
+        message: "We appreciate your patience during this maintenance period. Please reach out if you encounter any issues.",
+        timestamp: "2024-07-11T13:00:00Z"
+      }
+    ]
+  },
+  {
     id: 23,
     topic: "How to set up notifications",
     message: "I would like to receive notifications when new books from my favorite authors are available or when there are new replies to my discussions. How can I set this up?",
@@ -211,6 +239,7 @@ export const fakeDiscussions = [
       { id: 2, username: "Participant", message: "J'ai hâte d'entendre le discours de l'auteur X.", timestamp: "2024-07-08T09:00:00Z" }
     ]
   }
+  
 ];
 
 
