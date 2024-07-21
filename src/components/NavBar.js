@@ -5,6 +5,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../App.css';
 import logo from '../resources/logo.png';
 import { LanguageContext } from '../context/LanguageContext';
+import { fakeBooks, fakeDiscussions } from '../Database';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
+  const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
   const { language, toggleLanguage, setLanguage } = useContext(LanguageContext);
 
   const routes = [
@@ -20,7 +22,14 @@ const Navbar = () => {
     { path: '/reviews', name: 'Reviews' },
     { path: '/discussions', name: 'Discussions' },
     { path: '/profile', name: 'Profile' },
-    { path: '/AdvancedSearch', name: 'Advanced Search'}
+    { path: '/faq', name: 'FAQ' },
+    { path: '/AdvancedSearch', name: 'Advanced Search' }
+  ];
+
+  const allPages = [
+    ...routes,
+    ...fakeBooks.map(book => ({ path: `/Book/${book.id}`, name: `BOOK: ${book.title}` })),
+    ...fakeDiscussions.map(discussion => ({ path: `/discussions/${discussion.id}`, name: `DISC: ${discussion.topic}` }))
   ];
 
   useEffect(() => {
@@ -33,16 +42,48 @@ const Navbar = () => {
     const query = e.target.value;
     setSearchQuery(query);
     if (query) {
-      setSuggestions(routes.filter(route => route.name.toLowerCase().includes(query.toLowerCase())));
+      const filteredSuggestions = allPages.filter(page => page.name.toLowerCase().includes(query.toLowerCase())).slice(0, 5);
+      setSuggestions(filteredSuggestions);
+      setActiveSuggestionIndex(0);
     } else {
       setSuggestions([]);
+    }
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setSearchQuery(suggestion.name);
+    setSuggestions([]);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'ArrowDown') {
+      if (activeSuggestionIndex < suggestions.length - 1) {
+        setActiveSuggestionIndex(activeSuggestionIndex + 1);
+      }
+    } else if (e.key === 'ArrowUp') {
+      if (activeSuggestionIndex > 0) {
+        setActiveSuggestionIndex(activeSuggestionIndex - 1);
+      }
+    } else if (e.key === 'Enter') {
+      if (suggestions.length > 0) {
+        handleSuggestionClick(suggestions[activeSuggestionIndex]);
+      } else {
+        handleSearchSubmit(e);
+      }
     }
   };
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (searchQuery.trim() !== '') {
-      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      const selectedPage = allPages.find(page => page.name === searchQuery.trim());
+      if (selectedPage) {
+        navigate(selectedPage.path);
+      } else {
+        navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      }
+      setSearchQuery('');
+      setSuggestions([]);
     }
   };
 
@@ -61,7 +102,7 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg navbar-light bg-light px-3">
       <Link className="navbar-brand" to="/"><img src={logo} height="50px" alt="Book Haven Logo" /></Link>
       <li className="nav-item">
-        <form className="d-flex" onSubmit={handleSearchSubmit}>
+        <form className="d-flex" onSubmit={handleSearchSubmit} style={{ position: 'relative' }}>
           <input
             className="form-control me-2"
             type="search"
@@ -69,24 +110,25 @@ const Navbar = () => {
             aria-label="Search"
             value={searchQuery}
             onChange={handleSearchChange}
+            onKeyDown={handleKeyDown}
           />
           <button className="btn btn-outline-success" type="submit">
             <i className="bi bi-search"></i>
           </button>
+          {suggestions.length > 0 && (
+            <ul className="list-group position-absolute mt-2" style={{ zIndex: 1000, width: '100%', top: '100%' }}>
+              {suggestions.map((suggestion, index) => (
+                <li
+                  key={index}
+                  className={`list-group-item list-group-item-action ${index === activeSuggestionIndex ? 'active' : ''}`}
+                  onClick={() => handleSuggestionClick(suggestion)}
+                >
+                  {suggestion.name}
+                </li>
+              ))}
+            </ul>
+          )}
         </form>
-        {suggestions.length > 0 && (
-          <ul className="list-group position-absolute mt-2" style={{ zIndex: 1000 }}>
-            {suggestions.map((suggestion, index) => (
-              <li
-                key={index}
-                className="list-group-item list-group-item-action"
-                onClick={() => navigate(suggestion.path)}
-              >
-                {suggestion.name}
-              </li>
-            ))}
-          </ul>
-        )}
       </li>
       <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
@@ -104,6 +146,9 @@ const Navbar = () => {
           </li>
           <li className="nav-item">
             <Link className="nav-link" to="/discussions">Discussions</Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/faq">FAQ</Link>
           </li>
           <li className="nav-item">
             <button className="btn btn-link nav-link" onClick={handleLanguageClick}>

@@ -9,7 +9,7 @@ const Explore = () => {
     return author ? author.name : 'Unknown Author';
   };
 
-  const randInt = Math.floor(Math.random() * (9 - 1 + 1)) + 1
+  const randInt = Math.floor(Math.random() * (9 - 1 + 1)) + 1;
 
   return (
     <div className="container">
@@ -29,7 +29,7 @@ const Explore = () => {
               </div>
               <div className="card-footer">
                 <Link to={`/Book/${book.id}`}>
-                    <button className="btn btn-primary">More</button>
+                  <button className="btn btn-primary">More</button>
                 </Link>
               </div>
             </div>
@@ -37,27 +37,18 @@ const Explore = () => {
         ))}
         <div className="col-lg-4 col-md-6 mb-4">
           <div className="card h-100 special-card-advanced-search">
-            <div className="card-body">
-              <h4 className="card-title card-header" align="center">Advanced Search</h4>
-              <button className="btn btn-outline-success" type="submit">
-              <i className="bi bi-search"></i>
-              </button>
-              {/*<p className="card-text">
-                Use our advanced search tool to find books by genre, author, rating, and more.
-              </p>
-              <p className="card-text">
-                With our recommendation engine, you can get personalized suggestions based on your reading preferences and history.
-              </p>
-              */}
+            <div className="card-body" style={{ textAlign: 'center' }}>
+              <h4 className="card-title">Advanced Search</h4>
+              <Link to='/AdvancedSearch'>
+                <i className="bi bi-search" style={{ fontSize: '6rem', color: 'green', margin: '20px 0' }}></i>
+              </Link>
             </div>
-            <div className="card-footer">
-                <Link to='/AdvancedSearch'>
-                  <button className="btn btn-primary">
-                    <span style={{ color: "#FFFFFF" }}>
-                      Advanced Search
-                    </span>
-                  </button>
-                </Link>
+            <div className="card-footer" style={{ textAlign: 'center' }}>
+              <Link to='/AdvancedSearch'>
+                <button className="btn btn-primary">
+                  <span style={{ color: "#FFFFFF" }}>Advanced Search</span>
+                </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -74,7 +65,7 @@ const Explore = () => {
               <div className="card-footer">
                 <Link to={`/Book/${book.id}`}>
                   <button className="btn btn-primary">More</button>
-                </Link>  
+                </Link>
               </div>
             </div>
           </div>

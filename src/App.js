@@ -9,6 +9,7 @@ import Profile from './components/Profile';
 import AdvancedSearch from './components/AdvancedSearch';
 import BookDetails from './components/BookDetails';
 import SpecificDiscussion from './components/SpecificDiscussion';
+import FAQ from './components/FAQ';
 import { LanguageProvider } from './context/LanguageContext';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path="/discussions" element={<Discussions />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/AdvancedSearch" element={<AdvancedSearch />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="/book/:id" element={<BookDetails />} />
           <Route path="/discussions/:id" element={<SpecificDiscussion />} />
         </Routes>

@@ -5,33 +5,47 @@ import coverImage from '../logo.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 import { Link } from 'react-router-dom';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 const BookDetails = () => {
   const { id } = useParams();
   const book = fakeBooks.find(b => b.id === parseInt(id));
   const author = fakeAuthors.find(a => a.id === book.authorId);
   const bookReviews = fakeReviews.filter(review => review.bookId === book.id);
-  const randInt = Math.floor(Math.random() * (18 - 1 + 1)) + 1
+  const randInt = Math.floor(Math.random() * (18 - 1 + 1)) + 1;
   const activeDiscussions = fakeDiscussions.slice(randInt, randInt + 1);
 
   if (!book) {
     return <div>Book not found</div>;
   }
 
+  const ratingsBreakdown = [
+    { percentage: Math.floor(book.rating * 16), color: 'success', label: '★★★★★' },
+    { percentage: Math.floor((5 - book.rating) * 16), color: 'info', label: '★★★★☆' },
+    { percentage: 10, color: 'warning', label: '★★★☆☆' },
+    { percentage: 5, color: 'danger', label: '★★☆☆☆' },
+    { percentage: 5, color: 'danger', label: '★☆☆☆☆' },
+  ];
+
   const ratingsGraph = (
     <div className="ratings-graph">
-      <div className='ratings-details'>
-        <span>★★★★★ ({Math.floor(book.rating * 16)}%)</span><br></br>
-        <span>★★★★☆ ({Math.floor((5 - book.rating) * 16)}%)</span><br></br>
-        <span>★★★☆☆ (10%)</span><br></br>
-        <span>★★☆☆☆ (5%)</span><br></br>
-        <span>★☆☆☆☆ (5%)</span><br></br>
-      </div>
-      <div className="rating-bar" style={{ width: `${book.rating * 16}%` }}></div>
-      <div className="rating-bar" style={{ width: `${(5 - book.rating) * 16}%` }}></div>
-      <div className="rating-bar" style={{ width: '10%' }}></div>
-      <div className="rating-bar" style={{ width: '5%' }}></div>
-      <div className="rating-bar" style={{ width: '5%' }}></div>
+      {ratingsBreakdown.map((rating, index) => (
+        <OverlayTrigger
+          key={index}
+          placement="top"
+          overlay={<Tooltip id={`tooltip-${index}`}>{rating.label} ({rating.percentage}%)</Tooltip>}
+        >
+          <ProgressBar
+            variant={rating.color}
+            now={rating.percentage}
+            className="mb-2"
+            style={{ cursor: 'pointer' }}
+            aria-label={`${rating.label} with ${rating.percentage}%`}
+          />
+        </OverlayTrigger>
+      ))}
     </div>
   );
 
@@ -39,18 +53,18 @@ const BookDetails = () => {
     <div className="container mt-5">
       <div className="row">
         <div className="col-md-6">
-          <div className="card mb-3 h-50" style={{overflowY: 'scroll', minHeight:'50%'}}>
+          <div className="card mb-3 h-50" style={{ overflowY: 'scroll', minHeight: '50%' }}>
             <div className="card-body">
               <div className="row">
                 <div className="col-md-4">
-                  <img src={coverImage} alt={book.title} className="img-fluid" />
+                  <img src={coverImage} alt={book.title} className="img-fluid" aria-label={`Cover image of ${book.title}`} />
                 </div>
                 <div className="col-md-8">
                   <h1>{book.title}</h1>
                   <h3>by {author.name}</h3>
                 </div>
-            </div>
-            <div className='row'>
+              </div>
+              <div className='row'>
                 <div className='col-md-12'>
                   <p align='center'><strong>Genre:</strong> {book.genre}</p>
                   <p align='center'><strong>Rating:</strong> {book.rating}</p>
@@ -60,7 +74,7 @@ const BookDetails = () => {
               </div>
             </div>
           </div>
-          <div className="card mb-3 h-50" style={{overflowY: 'scroll', minHeight:'50%'}}>
+          <div className="card mb-3 h-50" style={{ overflowY: 'scroll', minHeight: '50%' }}>
             <div className="card-body">
               <h2>Reviews</h2>
               {bookReviews.length > 0 ? (
@@ -81,7 +95,27 @@ const BookDetails = () => {
         </div>
 
         <div className="col-md-6">
-          <div className="card mb-3 h-50" style={{overflowY: 'scroll', minHeight:'50%'}}>
+          <div className="card mb-3 h-50" style={{ overflowY: 'scroll', minHeight: '50%' }}>
+            <div className="card-body">
+              <h2>
+                Ratings Breakdown{' '}
+                <OverlayTrigger
+                  placement="top"
+                  overlay={<Tooltip id="tooltip-ratings">Hover over the bars to see more details.</Tooltip>}
+                >
+                  <i className="bi bi-info-circle" style={{ cursor: 'pointer' }} aria-label="Information about the ratings breakdown"></i>
+                </OverlayTrigger>
+              </h2>
+              {ratingsGraph}
+              <div className="additional-info mt-4">
+                <p><strong>Total Ratings:</strong> 500</p>
+                <p><strong>Average Rating:</strong> {book.rating}</p>
+                
+              </div>
+            </div>
+          </div>
+
+          <div className="card mb-3 h-50" style={{ overflowY: 'scroll', minHeight: '50%' }}>
             <div className="card-body">
               <h2>Related Discussions</h2>
               {activeDiscussions.length > 0 ? (
@@ -89,8 +123,7 @@ const BookDetails = () => {
                   <div key={discussion.id} className="card mb-3">
                     <div className="card-body">
                       <Link to={`/discussions/${discussion.id}`}>
-                        <a href="#" className="text-primary"><h5>{discussion.topic}</h5>
-                        </a>
+                        <h5 className="text-primary">{discussion.topic}</h5>
                       </Link>
                       <p className="card-text">{discussion.message}</p>
                       <p className="card-text"><small className="text-muted">Last active: {discussion.lastActive}</small></p>
@@ -101,13 +134,6 @@ const BookDetails = () => {
               ) : (
                 <p>No related discussions</p>
               )}
-            </div>
-          </div>
-
-          <div className="card mb-3 h-50" style={{overflowY: 'scroll', minHeight:'50%'}}>
-            <div className="card-body">
-              <h2>Ratings Breakdown</h2>
-              {ratingsGraph}
             </div>
           </div>
         </div>
