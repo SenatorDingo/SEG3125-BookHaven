@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/SEG3125-BookHaven/static/css/main.1496e14f.css",
+    "main.js": "/SEG3125-BookHaven/static/js/main.613647cf.js",
+    "static/media/caroThree.jpg": "/SEG3125-BookHaven/static/media/caroThree.831d83504858cc69bd2f.jpg",
+    "static/media/caroTwo.jpg": "/SEG3125-BookHaven/static/media/caroTwo.c206c75ecffc639738c9.jpg",
+    "static/media/caroOne.jpg": "/SEG3125-BookHaven/static/media/caroOne.ae3d69a15f8ff1780cd3.jpg",
+    "static/media/bootstrap-icons.woff?": "/SEG3125-BookHaven/static/media/bootstrap-icons.39795c0b4513de014cf8.woff",
+    "static/media/bootstrap-icons.woff2?": "/SEG3125-BookHaven/static/media/bootstrap-icons.b7bcc075b395c14ce8c2.woff2",
+    "static/media/logo.png": "/SEG3125-BookHaven/static/media/logo.406773f09dcce32d7862.png",
+    "index.html": "/SEG3125-BookHaven/index.html",
+    "main.1496e14f.css.map": "/SEG3125-BookHaven/static/css/main.1496e14f.css.map",
+    "main.613647cf.js.map": "/SEG3125-BookHaven/static/js/main.613647cf.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1496e14f.css",
+    "static/js/main.613647cf.js"
+  ]
+}
